@@ -1,0 +1,32 @@
+---
+- hosts: ec2
+  become: true
+  tasks:
+  - name: create file
+    file:
+      path: "index.html"
+      state: touch
+  - name: copy content
+    copy:
+      dest: "index.html"
+      content: |
+        Sample Web Site
+  
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: latest
+    become: yes
+
+  - name: Insert Index Page
+    copy:
+      #src: "index.html"
+      dest: /var/www/html/index.html
+      content: |
+        Sample WebSite
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
+

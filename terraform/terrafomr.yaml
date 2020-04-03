@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+    #- name: init
+    #  terraform:
+    #    project_path: "/home/azure-admin/ec2/"
+    #    state: initialized
+
+    - name: Execute Init
+      terraform:
+        project_path: "/DemoUS/DemoUS-master/DemoUS/ec2/"
+        state: planned
+        plan_file: "tfplan"
+        force_init: yes
+    - name: excute apply
+      terraform:
+        project_path: "/DemoUS/DemoUS-master/DemoUS/ec2"
+        state: present
+
